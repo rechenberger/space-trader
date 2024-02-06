@@ -1,3 +1,4 @@
+import { LocalDateTime } from '@/components/demo/LocalDateTime'
 import { Button } from '@/components/ui/button'
 import { api } from '@/server/api'
 import { revalidatePath } from 'next/cache'
@@ -18,11 +19,15 @@ export const MyShips = async () => {
                 cargo: ship.cargo,
                 crew: ship.crew.current,
                 navStatus: ship.nav.status,
+                destinationSymbol: ship.nav.route.destination.symbol,
+                destinationType: ship.nav.route.destination.type,
               },
               null,
               2,
             )}
           </pre>
+          Arrival:{' '}
+          <LocalDateTime datetime={ship.nav.route.arrival.toISOString()} />
           <form
             action={async () => {
               'use server'
