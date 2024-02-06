@@ -6,11 +6,6 @@ import { FindShipyard } from './FindShipyard'
 import { FindWaypoints } from './FindWaypoints'
 import { MyShips } from './MyShips'
 
-export const headers = {
-  Authorization: `Bearer ${process.env.ST_TOKEN}`,
-  'Content-Type': 'application/json',
-}
-
 export default async function Page() {
   const myAgent = await api.agents.getMyAgent()
 
