@@ -1,7 +1,7 @@
 import { Button } from '@/components/ui/button'
 import { api } from '@/server/api'
+import { revalidatePath } from 'next/cache'
 import { Fragment } from 'react'
-import { acceptContract } from './contacts.action'
 
 export const Contracts = async () => {
   const myContracts = await api.contracts.getContracts()
@@ -17,10 +17,17 @@ export const Contracts = async () => {
               <form
                 action={async () => {
                   'use server'
-                  await acceptContract(contract.id)
+                  const result = await api.contracts.acceptContract({
+                    contractId: contract.id,
+                  })
+
+                  console.log('acceptContract', result)
+                  revalidatePath('/game')
                 }}
               >
-                <Button type="submit">Accept</Button>
+                <Button type="submit" disabled={contract.accepted}>
+                  Accept
+                </Button>
               </form>
             </div>
           </Fragment>
