@@ -1,24 +1,7 @@
-export const headers = {
-  Authorization: `Bearer ${process.env.ST_TOKEN}`,
-  'Content-Type': 'application/json',
-}
-
-import { AgentsApi } from '../../../packages/spacetraders-sdk/src'
-
-const api = new AgentsApi().withMiddleware({
-  pre: async (context) => {
-    return {
-      ...context,
-      init: {
-        ...context.init,
-        headers,
-      },
-    }
-  },
-})
+import { api } from '@/server/api'
 
 export default async function Page() {
-  const agents = await api.getMyAgent({})
+  const agents = await api.agents.getMyAgent({})
   return (
     <>
       Dev

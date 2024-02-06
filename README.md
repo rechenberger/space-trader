@@ -12,3 +12,5 @@ openapi-generator generate \
  --additional-properties=modelPackage="models" \
  --additional-properties=apiPackage="api"
 ```
+
+delete waypoint trait paramater file as its corrupt and replace references with `any`
