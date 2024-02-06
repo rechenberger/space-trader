@@ -1,4 +1,6 @@
+import { Button } from '@/components/ui/button'
 import { api } from '@/server/api'
+import { revalidatePath } from 'next/cache'
 
 export const FindShipyard = async ({
   systemSymbol,
@@ -48,8 +50,22 @@ export const FindShipyard = async ({
             <div key={idx} className="border p-2">
               <h3>{ship.name}</h3>
               <h2>Price: {ship.purchasePrice}</h2>
-              {/* <h2>Modifications:</h2>
-              <pre>{JSON.stringify(ship.modifications, null, 2)}</pre> */}
+              <form
+                action={async () => {
+                  'use server'
+                  console.log('buying ship', ship.type)
+                  const result = await api.fleet.purchaseShip({
+                    purchaseShipRequest: {
+                      shipType: ship.type,
+                      waypointSymbol: shipyard.waypoint.symbol,
+                    },
+                  })
+                  console.log('result', result)
+                  revalidatePath('/game')
+                }}
+              >
+                <Button type="submit">Buy</Button>
+              </form>
             </div>
           ))}
         </div>
