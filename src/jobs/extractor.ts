@@ -134,7 +134,6 @@ client.defineJob({
             })
           }),
         )
-        io.wait('Waiting after selling to prevent rate limit', 2)
         return
       }
 
@@ -145,15 +144,31 @@ client.defineJob({
         await io.logger.info(
           `Looking for a waypoint to sell ${resourceToSell.symbol}`,
         )
-        const waypointsRaw = await api.systems.getSystemWaypoints({
-          systemSymbol: getSystemSymbol(currentWaypointNav.symbol),
-          limit: 20,
-          traits: 'MARKETPLACE',
-          page: 1,
-        })
+        await io.wait('Waiting before searching Marketplaces (Rate Limit)', 2)
+        const waypointsRaw = (
+          await Promise.all([
+            (
+              await api.systems.getSystemWaypoints({
+                systemSymbol: getSystemSymbol(currentWaypointNav.symbol),
+                limit: 20,
+                traits: 'MARKETPLACE',
+                page: 1,
+              })
+            ).data,
+            (
+              await api.systems.getSystemWaypoints({
+                systemSymbol: getSystemSymbol(currentWaypointNav.symbol),
+                limit: 20,
+                traits: 'MARKETPLACE',
+                page: 2,
+              })
+            ).data,
+          ])
+        ).flat()
+        await io.wait('Waiting after searching Marketplaces (Rate Limit)', 2)
 
         const waypoints = await Promise.all(
-          waypointsRaw.data.map(async (waypoint) => {
+          waypointsRaw.map(async (waypoint) => {
             // const market = (
             //   await api.systems.getMarket({
             //     systemSymbol: waypoint.systemSymbol,

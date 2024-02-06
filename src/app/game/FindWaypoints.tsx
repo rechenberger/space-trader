@@ -11,7 +11,7 @@ export const FindWaypoints = async ({
     systemSymbol,
     limit: 20,
     traits: 'MARKETPLACE',
-    page: 1,
+    page: 2,
   })
 
   const shipSymbol = 'TINGO-3'
