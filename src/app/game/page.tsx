@@ -1,5 +1,6 @@
 import { take } from 'lodash-es'
 import { Contracts } from './Contracts'
+import { FindShipyard } from './FindShipyard'
 
 export const headers = {
   Authorization: `Bearer ${process.env.ST_TOKEN}`,
@@ -31,7 +32,6 @@ export default async function Page() {
   return (
     <>
       <h2>Game</h2>
-
       <pre>
         <code>{JSON.stringify(myAgent, null, 2)}</code>
         <code>
@@ -44,6 +44,8 @@ export default async function Page() {
       </pre>
       <hr />
       <Contracts />
+      <hr />
+      <FindShipyard systemSymbol={systemSymbol} />
     </>
   )
 }
