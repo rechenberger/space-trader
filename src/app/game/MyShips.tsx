@@ -1,4 +1,6 @@
+import { Button } from '@/components/ui/button'
 import { api } from '@/server/api'
+import { revalidatePath } from 'next/cache'
 
 export const MyShips = async () => {
   const ships = (await api.fleet.getMyShips()).data
@@ -21,6 +23,27 @@ export const MyShips = async () => {
               2,
             )}
           </pre>
+          <form
+            action={async () => {
+              'use server'
+              if (ship.nav.status === 'DOCKED') {
+                const result = await api.fleet.orbitShip({
+                  shipSymbol: ship.symbol,
+                })
+                console.log('orbit result', result)
+              } else {
+                const result = await api.fleet.dockShip({
+                  shipSymbol: ship.symbol,
+                })
+                console.log('dock result', result)
+              }
+              revalidatePath('/game')
+            }}
+          >
+            <Button type="submit">
+              {ship.nav.status === 'DOCKED' ? 'Orbit' : 'Dock'}
+            </Button>
+          </form>
         </div>
       ))}
     </>
