@@ -1,6 +1,7 @@
 import { api } from '@/server/api'
 import { take } from 'lodash-es'
 import { Contracts } from './Contracts'
+import { FindAsteroids } from './FindAsteroids'
 import { FindShipyard } from './FindShipyard'
 import { MyShips } from './MyShips'
 
@@ -41,6 +42,8 @@ export default async function Page() {
       <Contracts />
       <hr />
       <FindShipyard systemSymbol={systemSymbol} />
+      <hr />
+      <FindAsteroids systemSymbol={systemSymbol} />
     </>
   )
 }
