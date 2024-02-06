@@ -1,19 +1,14 @@
 import { Button } from '@/components/ui/button'
+import { api } from '@/server/api'
 import { Fragment } from 'react'
 import { acceptContract } from './contacts.action'
-import { headers } from './page'
 
 export const Contracts = async () => {
-  const myContracts = await fetch(
-    `https://api.spacetraders.io/v2/my/contracts`,
-    {
-      headers,
-    },
-  ).then((res) => res.json())
+  const myContracts = await api.contracts.getContracts()
 
   return (
     <>
-      {myContracts.data.map((contract: any) => {
+      {myContracts.data.map((contract) => {
         return (
           <Fragment key={contract.id}>
             <div className="flex flex-row gap-4">

@@ -1,25 +1,19 @@
 'use server'
 
+import { api } from '@/server/api'
 import { revalidatePath } from 'next/cache'
-import { headers } from './page'
 
 export const acceptContract = async (contractId: string) => {
   console.log('hi server', contractId)
 
-  const response = await fetch(
-    `https://api.spacetraders.io/v2/my/contracts/${contractId}/accept`,
-    {
-      method: 'POST',
-      headers,
-    },
-  )
+  try {
+    const result = await api.contracts.acceptContract({
+      contractId,
+    })
 
-  if (!response.ok) {
-    throw new Error(await response.text())
+    console.log('acceptContract', result)
+    revalidatePath('/game')
+  } catch (error: any) {
+    throw new Error(await error.response.text())
   }
-
-  const result = await response.json()
-
-  console.log('acceptContract', result)
-  revalidatePath('/game')
 }

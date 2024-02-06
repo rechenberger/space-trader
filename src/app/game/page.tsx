@@ -9,26 +9,15 @@ export const headers = {
 }
 
 export default async function Page() {
-  const myAgent = await fetch('https://api.spacetraders.io/v2/my/agent', {
-    headers,
-  }).then((res) => res.json())
+  const myAgent = await api.agents.getMyAgent()
 
-  const headquarters = myAgent.data.headquarters
-  const systemSymbol = take(headquarters.split('-'), 2).join('-')
+  const waypointSymbol = myAgent.data.headquarters
+  const systemSymbol = take(waypointSymbol.split('-'), 2).join('-')
 
-  const startingLocation = await fetch(
-    `https://api.spacetraders.io/v2/systems/${systemSymbol}/waypoints/${headquarters}`,
-    {
-      headers,
-    },
-  ).then((res) => res.json())
-
-  const myContracts = await fetch(
-    `https://api.spacetraders.io/v2/my/contracts`,
-    {
-      headers,
-    },
-  ).then((res) => res.json())
+  const startingLocation = await api.systems.getWaypoint({
+    systemSymbol,
+    waypointSymbol,
+  })
 
   await api.agents.getMyAgent()
 
@@ -39,7 +28,7 @@ export default async function Page() {
         <code>{JSON.stringify(myAgent, null, 2)}</code>
         <code>
           {JSON.stringify(
-            { headquarters, systemSymbol, startingLocation, myContracts },
+            { waypointSymbol, systemSymbol, startingLocation },
             null,
             2,
           )}
