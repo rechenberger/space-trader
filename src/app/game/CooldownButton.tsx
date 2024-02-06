@@ -30,7 +30,7 @@ const CooldownButton = ({
   return (
     <>
       <Button type="submit" disabled={!!cd}>
-        {children} {cd ? `(${cd}s cooldown)` : null}
+        {children} {cd ? `(${cd}s)` : null}
       </Button>
     </>
   )

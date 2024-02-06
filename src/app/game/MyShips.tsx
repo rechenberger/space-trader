@@ -53,9 +53,9 @@ export const MyShips = async () => {
                 revalidatePath('/game')
               }}
             >
-              <Button type="submit">
+              <CooldownButton expiration={ship.nav.route.arrival}>
                 {ship.nav.status === 'DOCKED' ? 'Orbit' : 'Dock'}
-              </Button>
+              </CooldownButton>
             </form>
             <form
               action={async () => {

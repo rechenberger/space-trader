@@ -3,6 +3,7 @@ import { take } from 'lodash-es'
 import { Contracts } from './Contracts'
 import { FindAsteroids } from './FindAsteroids'
 import { FindShipyard } from './FindShipyard'
+import { FindWaypoints } from './FindWaypoints'
 import { MyShips } from './MyShips'
 
 export const headers = {
@@ -44,6 +45,8 @@ export default async function Page() {
       <FindShipyard systemSymbol={systemSymbol} />
       <hr />
       <FindAsteroids systemSymbol={systemSymbol} />
+      <hr />
+      <FindWaypoints systemSymbol={systemSymbol} />
     </>
   )
 }
