@@ -86,6 +86,30 @@ export const MyShips = async () => {
               </Fragment>
             </form>
           </div>
+          <hr />
+          <h2>Cargo</h2>
+          {ship.cargo.inventory.map((item, idx) => (
+            <div key={idx} className="border p-2">
+              <h3>{item.name}</h3>
+              <pre>{JSON.stringify(item, null, 2)}</pre>
+              <form
+                action={async () => {
+                  'use server'
+                  const result = await api.fleet.sellCargo({
+                    shipSymbol: ship.symbol,
+                    sellCargoRequest: {
+                      symbol: item.symbol,
+                      units: item.units,
+                    },
+                  })
+                  console.log('result', result)
+                  revalidatePath('/game')
+                }}
+              >
+                <Button type="submit">Sell</Button>
+              </form>
+            </div>
+          ))}
         </div>
       ))}
     </>

@@ -1,9 +1,8 @@
 import { Button } from '@/components/ui/button'
 import { api } from '@/server/api'
-import { omit } from 'lodash-es'
 import { revalidatePath } from 'next/cache'
 
-export const FindAsteroids = async ({
+export const FindMarkets = async ({
   systemSymbol,
 }: {
   systemSymbol: string
@@ -15,38 +14,13 @@ export const FindAsteroids = async ({
 
   const shipSymbol = 'TINGO-3'
 
-  const astroids = await Promise.all(
-    waypoints.data.map(async (waypoint) => {
-      const market = (
-        await api.systems.getMarket({
-          systemSymbol: waypoint.systemSymbol,
-          waypointSymbol: waypoint.symbol,
-        })
-      ).data
-
-      return {
-        waypoint,
-        market,
-      }
-    }),
-  )
-
   return (
     <>
-      <h2>ASTROIDS</h2>
-      {astroids.map(({ waypoint, market }, idx) => (
+      <h2>Markets</h2>
+      {waypoints.data.map((waypoint, idx) => (
         <div key={idx} className="border p-2">
           <h3>{waypoint.symbol}</h3>
-          <pre>
-            {JSON.stringify(
-              {
-                waypoint,
-                market: omit(market, ['transactions']),
-              },
-              null,
-              2,
-            )}
-          </pre>
+          <pre>{JSON.stringify(waypoint, null, 2)}</pre>
           <form
             action={async () => {
               'use server'
