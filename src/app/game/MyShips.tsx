@@ -22,12 +22,12 @@ export const MyShips = async () => {
                 role: ship.registration.role,
                 modules: ship.modules.map((m) => m.name).join(', '),
                 fuel: ship.fuel,
-                cargo: ship.cargo,
+                // cargo: ship.cargo,
                 crew: ship.crew.current,
                 navStatus: ship.nav.status,
                 destinationSymbol: ship.nav.route.destination.symbol,
                 destinationType: ship.nav.route.destination.type,
-                cooldown: ship.cooldown,
+                // cooldown: ship.cooldown,
               },
               null,
               2,
@@ -87,7 +87,9 @@ export const MyShips = async () => {
             </form>
           </div>
           <hr />
-          <h2>Cargo</h2>
+          <h2>
+            Cargo ({ship.cargo.units} / {ship.cargo.capacity})
+          </h2>
           {ship.cargo.inventory.map((item, idx) => (
             <div key={idx} className="border p-2">
               <h3>{item.name}</h3>
