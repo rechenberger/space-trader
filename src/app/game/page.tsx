@@ -1,17 +1,49 @@
-import { Button } from '@/components/ui/button'
+import { take } from 'lodash-es'
+import { Contracts } from './Contracts'
 
-export default function Page() {
-  const register = async () => {
-    'use server'
-    console.log('hi server')
-  }
+export const headers = {
+  Authorization: `Bearer ${process.env.ST_TOKEN}`,
+  'Content-Type': 'application/json',
+}
+
+export default async function Page() {
+  const myAgent = await fetch('https://api.spacetraders.io/v2/my/agent', {
+    headers,
+  }).then((res) => res.json())
+
+  const headquarters = myAgent.data.headquarters
+  const systemSymbol = take(headquarters.split('-'), 2).join('-')
+
+  const startingLocation = await fetch(
+    `https://api.spacetraders.io/v2/systems/${systemSymbol}/waypoints/${headquarters}`,
+    {
+      headers,
+    },
+  ).then((res) => res.json())
+
+  const myContracts = await fetch(
+    `https://api.spacetraders.io/v2/my/contracts`,
+    {
+      headers,
+    },
+  ).then((res) => res.json())
 
   return (
     <>
       <h2>Game</h2>
-      <form action={register}>
-        <Button type="submit">Register</Button>
-      </form>
+
+      <pre>
+        <code>{JSON.stringify(myAgent, null, 2)}</code>
+        <code>
+          {JSON.stringify(
+            { headquarters, systemSymbol, startingLocation, myContracts },
+            null,
+            2,
+          )}
+        </code>
+      </pre>
+      <hr />
+      <Contracts />
     </>
   )
 }
