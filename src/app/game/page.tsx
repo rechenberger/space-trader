@@ -2,6 +2,7 @@ import { api } from '@/server/api'
 import { take } from 'lodash-es'
 import { Contracts } from './Contracts'
 import { FindShipyard } from './FindShipyard'
+import { MyShips } from './MyShips'
 
 export const headers = {
   Authorization: `Bearer ${process.env.ST_TOKEN}`,
@@ -34,6 +35,8 @@ export default async function Page() {
           )}
         </code> */}
       </pre>
+      <hr />
+      <MyShips />
       <hr />
       <Contracts />
       <hr />
