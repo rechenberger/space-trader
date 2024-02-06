@@ -1,3 +1,4 @@
+import { api } from '@/server/api'
 import { take } from 'lodash-es'
 import { Contracts } from './Contracts'
 import { FindShipyard } from './FindShipyard'
@@ -28,6 +29,8 @@ export default async function Page() {
       headers,
     },
   ).then((res) => res.json())
+
+  await api.agents.getMyAgent()
 
   return (
     <>
