@@ -123,17 +123,15 @@ client.defineJob({
             .map((i) => i.symbol)
             .join(', ')}`,
         )
-        await Promise.all(
-          resourcesToSell.map((resource) => {
-            return api.fleet.sellCargo({
-              shipSymbol,
-              sellCargoRequest: {
-                symbol: resource.symbol,
-                units: resource.units,
-              },
-            })
-          }),
-        )
+        for (const resource of resourcesToSell) {
+          await api.fleet.sellCargo({
+            shipSymbol,
+            sellCargoRequest: {
+              symbol: resource.symbol,
+              units: resource.units,
+            },
+          })
+        }
         return
       }
 
