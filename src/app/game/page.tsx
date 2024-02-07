@@ -5,6 +5,7 @@ import { FindAsteroids } from './FindAsteroids'
 import { FindShipyard } from './FindShipyard'
 import { FindWaypoints } from './FindWaypoints'
 import { MyShips } from './MyShips'
+import { StartExtractor } from './StartExtractor'
 
 export default async function Page() {
   const myAgent = await api.agents.getMyAgent()
@@ -22,6 +23,7 @@ export default async function Page() {
   return (
     <>
       <h2>Game</h2>
+      <StartExtractor />
       <pre>
         <code>{JSON.stringify(myAgent, null, 2)}</code>
         {/* <code>
