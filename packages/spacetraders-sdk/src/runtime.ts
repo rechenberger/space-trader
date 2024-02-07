@@ -156,6 +156,12 @@ export class BaseAPI {
     if (response && response.status >= 200 && response.status < 300) {
       return response
     }
+    if (response.status === 429) {
+      // RATE LIMIT
+      // WAIT FOR 1.5 SECONDS AND RETRY
+      await new Promise((resolve) => setTimeout(resolve, 1500))
+      return this.request(context, initOverrides)
+    }
     throw new Error(await response.text())
   }
 
