@@ -1,6 +1,7 @@
 import { Button } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
 import { api } from '@/server/api'
+import { capitalCase } from 'change-case'
 import { revalidatePath } from 'next/cache'
 import { WaypointType } from '../../../../../../packages/spacetraders-sdk/src'
 import { TraitSelect } from './TraitSelect'
@@ -68,8 +69,8 @@ export default async function Page({
               <div className="text-muted-foreground">
                 {w.waypoint.x},{w.waypoint.y}
               </div>
-              <div className="text-muted-foreground capitalize flex-1 text-right">
-                {w.waypoint.type.toLowerCase()}
+              <div className="text-muted-foreground flex-1 text-right">
+                {capitalCase(w.waypoint.type)}
               </div>
             </div>
             <div className="line-clamp-3 h-12">

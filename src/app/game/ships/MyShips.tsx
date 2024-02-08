@@ -1,6 +1,7 @@
 import { Button } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
 import { api } from '@/server/api'
+import { capitalCase } from 'change-case'
 import { revalidatePath } from 'next/cache'
 import dynamic from 'next/dynamic'
 import { Fragment } from 'react'
@@ -18,8 +19,8 @@ export const MyShips = async () => {
           <Card key={idx} className="p-4 flex flex-col gap-2 text-sm">
             <div className="flex flex-row justify-between">
               <div className="font-bold">{ship.symbol}</div>
-              <div className="text-muted-foreground capitalize">
-                {ship.registration.role.toLowerCase()}
+              <div className="text-muted-foreground">
+                {capitalCase(ship.registration.role)}
               </div>
             </div>
             <div
@@ -46,10 +47,10 @@ export const MyShips = async () => {
               )}
             </div>
             <div className="truncate flex flex-row justify-between gap-2">
-              {ship.nav.status}{' '}
+              {capitalCase(ship.nav.status)}{' '}
               <span className="text-muted-foreground">
                 @ {ship.nav.route.destination.symbol} (
-                {ship.nav.route.destination.type})
+                {capitalCase(ship.nav.route.destination.type)})
               </span>
             </div>
             {/* <div>
