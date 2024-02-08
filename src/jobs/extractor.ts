@@ -25,7 +25,7 @@ client.defineJob({
       const arrivalTime = ship.nav.route.arrival
       if (arrivalTime.getTime() > Date.now()) {
         await io.logger.info(
-          `The ship ${shipSymbol} is still traveling to ${ship.nav.route.destination}`,
+          `The ship ${shipSymbol} is still traveling to ${ship.nav.route.destination.symbol}`,
         )
         const secondsToWait = Math.ceil(
           (arrivalTime.getTime() - Date.now()) / 1000,
