@@ -64,15 +64,6 @@ export default async function Page({
               Waypoints
             </Button>
           </Link>
-
-          <h2 className="mt-8 mb-2 px-4 text-lg font-semibold tracking-tight">
-            Dev
-          </h2>
-          <Link href="/game/dev">
-            <Button variant="ghost" className="w-full justify-start">
-              Dev
-            </Button>
-          </Link>
         </nav>
         <div className="flex flex-col gap-8 flex-1">{children}</div>
       </div>
