@@ -1,4 +1,6 @@
 import { Button } from '@/components/ui/button'
+import { Card } from '@/components/ui/card'
+import { formatNumber } from '@/lib/formatNumber'
 import { api } from '@/server/api'
 import { revalidatePath } from 'next/cache'
 
@@ -46,28 +48,63 @@ export const FindShipyard = async ({
           {/* <pre>SHIPS: {JSON.stringify(shipyard.shipyard.ships, null, 2)}</pre> */}
           {/* <pre>{JSON.stringify(shipyard.shipyard.transactions, null, 2)}</pre> */}
           <h2>Ships:</h2>
-          {shipyard.shipyard.ships?.map((ship, idx) => (
-            <div key={idx} className="border p-2">
-              <h3>{ship.name}</h3>
-              <h2>Price: {ship.purchasePrice}</h2>
-              <form
-                action={async () => {
-                  'use server'
-                  console.log('buying ship', ship.type)
-                  const result = await api.fleet.purchaseShip({
-                    purchaseShipRequest: {
-                      shipType: ship.type,
-                      waypointSymbol: shipyard.waypoint.symbol,
-                    },
-                  })
-                  console.log('result', result)
-                  revalidatePath('/game')
-                }}
-              >
-                <Button type="submit">Buy</Button>
-              </form>
-            </div>
-          ))}
+          <div className="grid grid-cols-3 gap-4">
+            {shipyard.shipyard.ships?.map((ship, idx) => (
+              <Card key={idx} className="p-4 text-sm flex flex-col gap-2">
+                <div className="flex flex-row justify-between">
+                  <strong>{ship.name}</strong>
+                  <div className="text-muted-foreground">
+                    {formatNumber(ship.purchasePrice)} Credits
+                  </div>
+                </div>
+                <div className="text-xs">{ship.description}</div>
+                <hr className="my-2" />
+                <div className="grid grid-cols-[auto_1fr] gap-2">
+                  <>
+                    <div className="">Frame</div>
+                    <div className="text-muted-foreground">
+                      {ship.frame.name} ({ship.frame.fuelCapacity} Fuel)
+                    </div>
+                  </>
+                  <>
+                    <div className="">Reactor</div>
+                    <div className="text-muted-foreground">
+                      {ship.reactor.name} ({ship.reactor.powerOutput} Power)
+                    </div>
+                  </>
+                  <>
+                    <div className="">Engine</div>
+                    <div className="text-muted-foreground">
+                      {ship.engine.name} ({ship.engine.speed} Speed)
+                    </div>
+                  </>
+                  <>
+                    <div className="">Mounts</div>
+                    <div className="text-muted-foreground">
+                      {ship.mounts.map((m) => m.name).join(', ')}
+                    </div>
+                  </>
+                </div>
+                <hr className="my-2" />
+                <form
+                  action={async () => {
+                    'use server'
+                    console.log('buying ship', ship.type)
+                    const result = await api.fleet.purchaseShip({
+                      purchaseShipRequest: {
+                        shipType: ship.type,
+                        waypointSymbol: shipyard.waypoint.symbol,
+                      },
+                    })
+                    console.log('result', result)
+                    revalidatePath('/game')
+                  }}
+                >
+                  <Button type="submit">Buy</Button>
+                </form>
+              </Card>
+            ))}
+          </div>
         </div>
       ))}
     </>
