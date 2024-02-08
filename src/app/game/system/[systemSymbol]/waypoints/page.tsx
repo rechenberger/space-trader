@@ -53,20 +53,41 @@ export default async function Page({
             {w.market && (
               <>
                 <hr className="my-2" />
-                <div className="flex-1">
-                  <div className="font-bold">Market</div>
-                  <div>
-                    Imports: {w.market.imports?.map((t) => t.name).join(', ')}
-                  </div>
-                  <div>
-                    Exports: {w.market.exports?.map((t) => t.name).join(', ')}
-                  </div>
-                  <div>
-                    Exchange: {w.market.exchange?.map((t) => t.name).join(', ')}
-                  </div>
-                  <div>
-                    TradeGoods:{' '}
-                    {w.market.tradeGoods?.map((t) => t.symbol).join(', ')}
+                <div className="flex-1 flex flex-col gap-2">
+                  <div className="font-bold text-center">Market</div>
+                  <div className="grid grid-cols-[auto_1fr] gap-2">
+                    {!!w.market.imports.length && (
+                      <>
+                        <span className="">Imports</span>
+                        <span className="text-muted-foreground">
+                          {w.market.imports?.map((t) => t.name).join(', ')}
+                        </span>
+                      </>
+                    )}
+                    {!!w.market.exports.length && (
+                      <>
+                        <span className="">Exports</span>
+                        <span className="text-muted-foreground">
+                          {w.market.exports?.map((t) => t.name).join(', ')}
+                        </span>
+                      </>
+                    )}
+                    {!!w.market.exchange.length && (
+                      <>
+                        <span className="">Exchange</span>
+                        <span className="text-muted-foreground">
+                          {w.market.exchange?.map((t) => t.name).join(', ')}
+                        </span>
+                      </>
+                    )}
+                    {!!w.market.tradeGoods?.length && (
+                      <>
+                        <span className="">TradeGoods</span>
+                        <span className="text-muted-foreground">
+                          {w.market.tradeGoods?.map((t) => t.symbol).join(', ')}
+                        </span>
+                      </>
+                    )}
                   </div>
                 </div>
               </>
