@@ -64,16 +64,6 @@ export default async function Page({
               Shipyards
             </Button>
           </Link>
-          <Link href={`/game/system/${systemSymbol}/asteroids`}>
-            <Button variant="ghost" className="w-full justify-start">
-              Asteroids
-            </Button>
-          </Link>
-          <Link href={`/game/system/${systemSymbol}/markets`}>
-            <Button variant="ghost" className="w-full justify-start">
-              Markets
-            </Button>
-          </Link>
         </nav>
         <div className="flex flex-col gap-8 flex-1">{children}</div>
       </div>
