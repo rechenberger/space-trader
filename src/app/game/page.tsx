@@ -1,6 +1,6 @@
 import { api } from '@/server/api'
 import { take } from 'lodash-es'
-import { StartExtractor } from './dev/StartExtractor'
+import { StartExtractor } from './ships/StartExtractor'
 
 // export const dynamic = 'force-dynamic'
 

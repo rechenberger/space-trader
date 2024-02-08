@@ -54,6 +54,16 @@ export default async function Page({
               Shipyards
             </Button>
           </Link>
+          <Link href={`/game/system/${systemSymbol}/asteroids`}>
+            <Button variant="ghost" className="w-full justify-start">
+              Asteroids
+            </Button>
+          </Link>
+          <Link href={`/game/system/${systemSymbol}/waypoints`}>
+            <Button variant="ghost" className="w-full justify-start">
+              Waypoints
+            </Button>
+          </Link>
 
           <h2 className="mt-8 mb-2 px-4 text-lg font-semibold tracking-tight">
             Dev
