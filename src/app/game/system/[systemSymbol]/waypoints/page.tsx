@@ -17,7 +17,18 @@ export default async function Page({
     page: 1,
   })
 
-  const waypoints = waypointsRaw.map((waypoint) => ({ waypoint }))
+  const waypoints = await Promise.all(
+    waypointsRaw.map(async (waypoint) => {
+      const { data: market } = await api.systems.getMarket({
+        systemSymbol: waypoint.systemSymbol,
+        waypointSymbol: waypoint.symbol,
+      })
+      return {
+        waypoint,
+        market,
+      }
+    }),
+  )
 
   return (
     <>
@@ -39,6 +50,27 @@ export default async function Page({
             <div className="line-clamp-3 h-12">
               {w.waypoint.traits.map((t) => t.name).join(', ')}
             </div>
+            {w.market && (
+              <>
+                <hr className="my-2" />
+                <div className="flex-1">
+                  <div className="font-bold">Market</div>
+                  <div>
+                    Imports: {w.market.imports?.map((t) => t.name).join(', ')}
+                  </div>
+                  <div>
+                    Exports: {w.market.exports?.map((t) => t.name).join(', ')}
+                  </div>
+                  <div>
+                    Exchange: {w.market.exchange?.map((t) => t.name).join(', ')}
+                  </div>
+                  <div>
+                    TradeGoods:{' '}
+                    {w.market.tradeGoods?.map((t) => t.symbol).join(', ')}
+                  </div>
+                </div>
+              </>
+            )}
             <hr className="my-2" />
             <div className="flex flex-row justify-end">
               <form
