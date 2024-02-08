@@ -2,8 +2,10 @@ import { Button } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
 import { api } from '@/server/api'
 import { revalidatePath } from 'next/cache'
+import { WaypointType } from '../../../../../../packages/spacetraders-sdk/src'
 import { TraitSelect } from './TraitSelect'
 import { WaypointPagination } from './WaypointPagination'
+import { WaypointTypeSelect } from './WaypointTypeSelect'
 import { defaultTrait } from './traits'
 
 export default async function Page({
@@ -14,10 +16,12 @@ export default async function Page({
   searchParams: {
     trait?: string
     page?: string
+    type?: WaypointType
   }
 }) {
   const systemSymbol = params.systemSymbol
   const trait = searchParams.trait ?? defaultTrait
+  const type = searchParams.type
   const page = searchParams.page ? parseInt(searchParams.page) : 1
 
   const { data: waypointsRaw, meta: pageInfo } =
@@ -25,6 +29,7 @@ export default async function Page({
       systemSymbol,
       limit: 20,
       traits: trait,
+      type,
       page,
     })
 
@@ -45,6 +50,7 @@ export default async function Page({
     <>
       <div className="flex flex-row -mb-4 items-center gap-4">
         <TraitSelect value={trait} />
+        <WaypointTypeSelect value={type} />
         <div className="flex-1"></div>
         <WaypointPagination
           value={page}
