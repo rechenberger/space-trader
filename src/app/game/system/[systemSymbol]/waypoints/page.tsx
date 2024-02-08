@@ -1,19 +1,15 @@
 import { Button } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '@/components/ui/select'
 import { api } from '@/server/api'
 import { revalidatePath } from 'next/cache'
+import { TraitSelect } from './TraitSelect'
 
 export default async function Page({
   params,
+  searchParams,
 }: {
   params: { systemSymbol: string }
+  searchParams: { trait?: string }
 }) {
   const systemSymbol = params.systemSymbol
 
@@ -39,16 +35,8 @@ export default async function Page({
 
   return (
     <>
-      <div className="flex flex-row -mb-4">
-        <Select value={'MARKETPLACE'} disabled>
-          <SelectTrigger className="w-[180px]">
-            <SelectValue placeholder="Traits" />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectItem value="ALL">All Traits</SelectItem>
-            <SelectItem value="MARKETPLACE">Marketplace</SelectItem>
-          </SelectContent>
-        </Select>
+      <div className="flex flex-row -mb-4 items-center gap-4">
+        <TraitSelect value={searchParams.trait} />
       </div>
       <div className="grid grid-cols-3 gap-4">
         {waypoints.map((w) => (
