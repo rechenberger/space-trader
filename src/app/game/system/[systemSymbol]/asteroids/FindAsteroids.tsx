@@ -37,7 +37,7 @@ export const FindAsteroids = async ({
       {astroids.map(({ waypoint, market }, idx) => (
         <div key={idx} className="border p-2">
           <h3>{waypoint.symbol}</h3>
-          <pre>
+          <pre className="text-xs">
             {JSON.stringify(
               {
                 waypoint,
