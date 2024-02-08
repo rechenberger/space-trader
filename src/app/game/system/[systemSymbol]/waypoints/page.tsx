@@ -39,7 +39,7 @@ export default async function Page({
 
   return (
     <>
-      <div className="flex flex-row">
+      <div className="flex flex-row -mb-4">
         <Select value={'MARKETPLACE'} disabled>
           <SelectTrigger className="w-[180px]">
             <SelectValue placeholder="Traits" />
