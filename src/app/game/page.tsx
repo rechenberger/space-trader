@@ -1,3 +1,4 @@
+import { LocalDateTime } from '@/components/demo/LocalDateTime'
 import { api } from '@/server/api'
 import { take } from 'lodash-es'
 import { Contracts } from './Contracts'
@@ -6,6 +7,8 @@ import { FindShipyard } from './FindShipyard'
 import { FindWaypoints } from './FindWaypoints'
 import { MyShips } from './MyShips'
 import { StartExtractor } from './StartExtractor'
+
+export const dynamic = 'force-dynamic'
 
 export default async function Page() {
   const myAgent = await api.agents.getMyAgent()
@@ -23,6 +26,9 @@ export default async function Page() {
   return (
     <>
       <h2>Game</h2>
+      <div>
+        Generated: <LocalDateTime datetime={new Date().toISOString()} />
+      </div>
       <StartExtractor />
       <pre>
         <code>{JSON.stringify(myAgent, null, 2)}</code>
