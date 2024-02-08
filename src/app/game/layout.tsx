@@ -1,4 +1,5 @@
 import { api } from '@/server/api'
+import { take } from 'lodash-es'
 import Link from 'next/link'
 
 export const dynamic = 'force-dynamic'
@@ -9,8 +10,8 @@ export default async function Page({
   children: React.ReactNode
 }) {
   const { data: myAgent } = await api.agents.getMyAgent()
-
-  await api.agents.getMyAgent()
+  const waypointSymbol = myAgent.headquarters
+  const systemSymbol = take(waypointSymbol.split('-'), 2).join('-')
 
   return (
     <>
@@ -25,11 +26,11 @@ export default async function Page({
         <nav className="flex flex-col gap-2">
           <Link href="/game">Game</Link>
           <Link href="/game/ships">Ships</Link>
-          <Link href="/game/shipyards">Shipyards</Link>
+          <Link href={`/game/system/${systemSymbol}/shipyards`}>Shipyards</Link>
           <Link href="/game/contracts">Contracts</Link>
           <Link href="/game/dev">Dev</Link>
         </nav>
-        <div className="">{children}</div>
+        <div className="flex flex-col gap-8 flex-1">{children}</div>
       </div>
     </>
   )
