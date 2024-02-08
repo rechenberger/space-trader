@@ -23,33 +23,47 @@ export const MyShips = async () => {
               </div>
             </div>
             <div
-              className="text-xs truncate"
+              className="text-sm truncate text-muted-foreground"
               title={ship.modules.map((m) => m.name).join(', ') || 'No Modules'}
             >
               {ship.modules.map((m) => m.name).join(', ') || 'No Modules'}
             </div>
+            <hr className="my-4" />
             <div className="flex flex-row justify-between">
               <div className="">
-                Fuel: {ship.fuel.current} / {ship.fuel.capacity}
+                Fuel:{' '}
+                <span className="text-muted-foreground">
+                  {ship.fuel.current}/{ship.fuel.capacity}
+                </span>
               </div>
               {!!ship.crew.capacity && (
                 <div className="">
-                  Crew: {ship.crew.current} / {ship.crew.capacity}
+                  Crew:{' '}
+                  <span className="text-muted-foreground">
+                    {ship.crew.current}/{ship.crew.capacity}
+                  </span>
                 </div>
               )}
             </div>
-            <div className="truncate">
-              {ship.nav.status} @ {ship.nav.route.destination.symbol} (
-              {ship.nav.route.destination.type})
+            <div className="truncate flex flex-row justify-between gap-2">
+              {ship.nav.status}{' '}
+              <span className="text-muted-foreground">
+                @ {ship.nav.route.destination.symbol} (
+                {ship.nav.route.destination.type})
+              </span>
             </div>
             {/* <div>
               Arrival:{' '}
               <LocalDateTime datetime={ship.nav.route.arrival.toISOString()} />
             </div> */}
-            <hr />
-            <h2>
-              Cargo ({ship.cargo.units} / {ship.cargo.capacity})
-            </h2>
+
+            <hr className="my-4" />
+            <div className="flex flex-row justify-between">
+              <div>Cargo</div>
+              <div className="text-muted-foreground">
+                {ship.cargo.units} / {ship.cargo.capacity}
+              </div>
+            </div>
             {ship.cargo.inventory.map((item, idx) => (
               <div key={idx} className="border rounded-md flex flex-row gap-4">
                 <h3 className="flex-1 p-2" title={item.description}>
@@ -76,7 +90,7 @@ export const MyShips = async () => {
               </div>
             ))}
             <div className="flex-1"></div>
-            <hr />
+            <hr className="my-4" />
             <div className="flex flex-row gap-4">
               <form
                 action={async () => {
