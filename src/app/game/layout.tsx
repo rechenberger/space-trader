@@ -1,3 +1,4 @@
+import { LocalTime } from '@/components/demo/LocalDateTime'
 import { Button } from '@/components/ui/button'
 import { formatNumber } from '@/lib/formatNumber'
 import { api } from '@/server/api'
@@ -16,10 +17,14 @@ export default async function Page({
   const systemSymbol = take(waypointSymbol.split('-'), 2).join('-')
   return (
     <>
-      <div className="flex flex-row gap-8 px-4">
+      <div className="flex flex-row gap-4 px-4 items-center text-sm text-muted-foreground -my-4">
         <div className="flex-1" />
-        <div>{formatNumber(myAgent.credits)} Credits</div>
-        {/* <div>Generated: {new Date().toISOString()}</div> */}
+        <div className="">
+          <LocalTime datetime={new Date().toISOString()} />
+        </div>
+        <div>
+          <strong>{formatNumber(myAgent.credits)}</strong> Credits
+        </div>
       </div>
       <div className="flex flex-row gap-8">
         <nav className="flex flex-col w-48">
