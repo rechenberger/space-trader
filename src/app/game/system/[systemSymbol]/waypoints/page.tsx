@@ -3,6 +3,7 @@ import { Card } from '@/components/ui/card'
 import { api } from '@/server/api'
 import { revalidatePath } from 'next/cache'
 import { TraitSelect } from './TraitSelect'
+import { WaypointPagination } from './WaypointPagination'
 import { defaultTrait } from './traits'
 
 export default async function Page({
@@ -10,17 +11,22 @@ export default async function Page({
   searchParams,
 }: {
   params: { systemSymbol: string }
-  searchParams: { trait?: string }
+  searchParams: {
+    trait?: string
+    page?: string
+  }
 }) {
   const systemSymbol = params.systemSymbol
   const trait = searchParams.trait ?? defaultTrait
+  const page = searchParams.page ? parseInt(searchParams.page) : 1
 
-  const { data: waypointsRaw } = await api.systems.getSystemWaypoints({
-    systemSymbol,
-    limit: 20,
-    traits: trait,
-    page: 1,
-  })
+  const { data: waypointsRaw, meta: pageInfo } =
+    await api.systems.getSystemWaypoints({
+      systemSymbol,
+      limit: 20,
+      traits: trait,
+      page,
+    })
 
   const waypoints = await Promise.all(
     waypointsRaw.map(async (waypoint) => {
@@ -39,6 +45,11 @@ export default async function Page({
     <>
       <div className="flex flex-row -mb-4 items-center gap-4">
         <TraitSelect value={trait} />
+        <div className="flex-1"></div>
+        <WaypointPagination
+          value={page}
+          max={Math.ceil(pageInfo.total / pageInfo.limit)}
+        />
       </div>
       <div className="grid grid-cols-3 gap-4">
         {waypoints.map((w) => (
