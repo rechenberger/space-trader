@@ -1,4 +1,5 @@
 import { api } from '@/server/api'
+import { runTaskSuperjson } from '@/server/runTaskSuperjson'
 import { client } from '@/trigger'
 import { eventTrigger } from '@trigger.dev/sdk'
 import { first, orderBy, take } from 'lodash-es'
@@ -15,11 +16,14 @@ client.defineJob({
     await io.logger.info(`Starting the extractor job for ship ${shipSymbol}`)
 
     await (async () => {
-      const ship = (
-        await api.fleet.getMyShip({
-          shipSymbol,
-        })
-      ).data
+      const ship = await runTaskSuperjson(io, 'get-ship', async () => {
+        const s = (
+          await api.fleet.getMyShip({
+            shipSymbol,
+          })
+        ).data
+        return s
+      })
 
       const arrivalTime = ship.nav.route.arrival
       if (arrivalTime.getTime() > Date.now()) {

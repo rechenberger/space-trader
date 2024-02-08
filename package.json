@@ -7,7 +7,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "format": "prettier --write ."
+    "format": "prettier --write .",
+    "trigger": "pnpm dlx @trigger.dev/cli@latest dev"
   },
   "dependencies": {
     "@radix-ui/react-checkbox": "^1.0.4",
@@ -15,6 +16,9 @@
     "@radix-ui/react-label": "^2.0.2",
     "@radix-ui/react-slot": "^1.0.2",
     "@teampilot/sdk": "^0.0.26",
+    "@trigger.dev/nextjs": "^2.3.17",
+    "@trigger.dev/react": "^2.3.17",
+    "@trigger.dev/sdk": "^2.3.17",
     "@types/node": "20.6.3",
     "@types/react": "18.2.22",
     "@types/react-dom": "18.2.7",
@@ -32,14 +36,12 @@
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-markdown": "^9.0.1",
+    "superjson": "^2.2.1",
     "tailwind-merge": "^1.14.0",
     "tailwindcss": "3.4.1",
     "tailwindcss-animate": "^1.0.7",
     "typescript": "5.2.2",
-    "zod": "^3.22.4",
-    "@trigger.dev/sdk": "^2.3.17",
-    "@trigger.dev/nextjs": "^2.3.17",
-    "@trigger.dev/react": "^2.3.17"
+    "zod": "^3.22.4"
   },
   "devDependencies": {
     "@types/lodash-es": "^4.17.12",
