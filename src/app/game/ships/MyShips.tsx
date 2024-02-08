@@ -28,7 +28,7 @@ export const MyShips = async () => {
             >
               {ship.modules.map((m) => m.name).join(', ') || 'No Modules'}
             </div>
-            <hr className="my-4" />
+            <hr className="my-2" />
             <div className="flex flex-row justify-between">
               <div className="">
                 Fuel:{' '}
@@ -57,7 +57,7 @@ export const MyShips = async () => {
               <LocalDateTime datetime={ship.nav.route.arrival.toISOString()} />
             </div> */}
 
-            <hr className="my-4" />
+            <hr className="my-2" />
             <div className="flex flex-row justify-between">
               <div>Cargo</div>
               <div className="text-muted-foreground">
@@ -90,8 +90,8 @@ export const MyShips = async () => {
               </div>
             ))}
             <div className="flex-1"></div>
-            <hr className="my-4" />
-            <div className="flex flex-row gap-4">
+            <hr className="my-2" />
+            <div className="flex flex-row justify-end gap-4">
               <form
                 action={async () => {
                   'use server'
