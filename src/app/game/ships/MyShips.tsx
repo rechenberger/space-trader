@@ -5,7 +5,7 @@ import { revalidatePath } from 'next/cache'
 import dynamic from 'next/dynamic'
 import { Fragment } from 'react'
 
-const CooldownButton = dynamic(() => import('./CooldownButton'), {
+const CooldownButton = dynamic(() => import('../dev/CooldownButton'), {
   ssr: false,
 })
 

@@ -24,6 +24,8 @@ export default async function Page({
       <div className="flex flex-row gap-8">
         <nav className="flex flex-col gap-2">
           <Link href="/game">Game</Link>
+          <Link href="/game/ships">Ships</Link>
+          <Link href="/game/shipyards">Shipyards</Link>
           <Link href="/game/contracts">Contracts</Link>
           <Link href="/game/dev">Dev</Link>
         </nav>
