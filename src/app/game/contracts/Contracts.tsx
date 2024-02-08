@@ -35,13 +35,13 @@ export const Contracts = async () => {
                     </div>
                   </>
                   <>
-                    <div className="">Payment (Accept)</div>
+                    <div className="">Payment on Accept</div>
                     <div className="text-muted-foreground">
                       {formatNumber(contract.terms.payment.onAccepted)} Credits
                     </div>
                   </>
                   <>
-                    <div className="">Payment (Fulfill)</div>
+                    <div className="">Payment on Fulfill</div>
                     <div className="text-muted-foreground">
                       {formatNumber(contract.terms.payment.onFulfilled)} Credits
                     </div>
@@ -56,6 +56,14 @@ export const Contracts = async () => {
                       </div>
                     </>
                   )}
+                  <>
+                    <div className="">Deadline to Deliver</div>
+                    <div className="text-muted-foreground">
+                      <LocalDateTime
+                        datetime={contract.terms.deadline.toISOString()}
+                      />
+                    </div>
+                  </>
                   {contract.terms.deliver?.map((d, idx) => (
                     <Fragment key={idx}>
                       <div className="">Deliver #{idx + 1}</div>
@@ -68,14 +76,6 @@ export const Contracts = async () => {
                       </div>
                     </Fragment>
                   ))}
-                  <>
-                    <div className="">Deadline to Deliver</div>
-                    <div className="text-muted-foreground">
-                      <LocalDateTime
-                        datetime={contract.terms.deadline.toISOString()}
-                      />
-                    </div>
-                  </>
                 </div>
                 <div className="flex flex-row justify-end">
                   {!contract.accepted && (
