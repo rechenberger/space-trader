@@ -15,7 +15,7 @@ export const MyShips = async () => {
     <>
       <div className="grid grid-cols-3 gap-4">
         {ships.map((ship, idx) => (
-          <Card key={idx} className="p-4 flex flex-col gap-2">
+          <Card key={idx} className="p-4 flex flex-col gap-2 text-sm">
             <div className="flex flex-row justify-between">
               <div className="font-bold">{ship.symbol}</div>
               <div className="text-muted-foreground capitalize">
@@ -23,12 +23,12 @@ export const MyShips = async () => {
               </div>
             </div>
             <div
-              className="text-sm truncate text-muted-foreground"
+              className="truncate text-muted-foreground"
               title={ship.modules.map((m) => m.name).join(', ') || 'No Modules'}
             >
               {ship.modules.map((m) => m.name).join(', ') || 'No Modules'}
             </div>
-            <hr className="my-2" />
+            <hr className="" />
             <div className="flex flex-row justify-between">
               <div className="">
                 Fuel:{' '}
@@ -57,7 +57,7 @@ export const MyShips = async () => {
               <LocalDateTime datetime={ship.nav.route.arrival.toISOString()} />
             </div> */}
 
-            <hr className="my-2" />
+            <hr className="" />
             <div className="flex flex-row justify-between">
               <div>Cargo</div>
               <div className="text-muted-foreground">
@@ -83,14 +83,14 @@ export const MyShips = async () => {
                     revalidatePath('/game')
                   }}
                 >
-                  <Button type="submit" variant="secondary">
+                  <Button type="submit" variant="secondary" size="sm">
                     Sell
                   </Button>
                 </form>
               </div>
             ))}
             <div className="flex-1"></div>
-            <hr className="my-2" />
+            <hr className="" />
             <div className="flex flex-row justify-end gap-4">
               <form
                 action={async () => {
