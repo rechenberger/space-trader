@@ -2,7 +2,7 @@ import { Button } from '@/components/ui/button'
 import { api } from '@/server/api'
 import { revalidatePath } from 'next/cache'
 
-export const FindWaypoints = async ({
+export const FindMarkets = async ({
   systemSymbol,
 }: {
   systemSymbol: string
