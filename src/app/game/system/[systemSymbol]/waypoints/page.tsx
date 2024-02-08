@@ -3,6 +3,7 @@ import { Card } from '@/components/ui/card'
 import { api } from '@/server/api'
 import { revalidatePath } from 'next/cache'
 import { TraitSelect } from './TraitSelect'
+import { defaultTrait } from './traits'
 
 export default async function Page({
   params,
@@ -12,11 +13,12 @@ export default async function Page({
   searchParams: { trait?: string }
 }) {
   const systemSymbol = params.systemSymbol
+  const trait = searchParams.trait ?? defaultTrait
 
   const { data: waypointsRaw } = await api.systems.getSystemWaypoints({
     systemSymbol,
     limit: 20,
-    traits: 'MARKETPLACE',
+    traits: trait,
     page: 1,
   })
 
@@ -36,7 +38,7 @@ export default async function Page({
   return (
     <>
       <div className="flex flex-row -mb-4 items-center gap-4">
-        <TraitSelect value={searchParams.trait} />
+        <TraitSelect value={trait} />
       </div>
       <div className="grid grid-cols-3 gap-4">
         {waypoints.map((w) => (

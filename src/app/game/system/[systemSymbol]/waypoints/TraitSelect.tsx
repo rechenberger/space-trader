@@ -7,7 +7,9 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select'
+import { capitalCase } from 'change-case'
 import { ParamsLink, useChangeSearchParams } from './ParamsLink'
+import { traits } from './traits'
 
 export const TraitSelect = ({ value }: { value?: string }) => {
   const changeSearchParams = useChangeSearchParams()
@@ -16,19 +18,22 @@ export const TraitSelect = ({ value }: { value?: string }) => {
       <Select
         value={value ?? 'ALL'}
         onValueChange={(value) => {
-          changeSearchParams({ trait: value }).push()
+          const trait = value === 'ALL' ? null : value
+          changeSearchParams({ trait }).push()
         }}
       >
         <SelectTrigger className="w-[180px]">
           <SelectValue placeholder="Traits" />
         </SelectTrigger>
         <SelectContent>
-          <ParamsLink params={{ trait: null }}>
+          {/* <ParamsLink params={{ trait: null }}>
             <SelectItem value="ALL">All traits</SelectItem>
-          </ParamsLink>
-          <ParamsLink params={{ trait: 'MARKETPLACE' }}>
-            <SelectItem value="MARKETPLACE">Marketplace</SelectItem>
-          </ParamsLink>
+          </ParamsLink> */}
+          {traits.map((trait) => (
+            <ParamsLink key={trait} params={{ trait }}>
+              <SelectItem value={trait}>{capitalCase(trait)}</SelectItem>
+            </ParamsLink>
+          ))}
         </SelectContent>
       </Select>
     </>
