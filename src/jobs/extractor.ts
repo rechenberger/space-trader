@@ -16,14 +16,11 @@ client.defineJob({
     await io.logger.info(`Starting the extractor job for ship ${shipSymbol}`)
 
     await (async () => {
-      const ship = await runTaskSuperjson(io, 'get-ship', async () => {
-        const s = (
-          await api.fleet.getMyShip({
-            shipSymbol,
-          })
-        ).data
-        return s
-      })
+      const { data: ship } = await runTaskSuperjson(io, 'getShip', async () =>
+        api.fleet.getMyShip({
+          shipSymbol,
+        }),
+      )
 
       const arrivalTime = ship.nav.route.arrival
       if (arrivalTime.getTime() > Date.now()) {
@@ -50,12 +47,15 @@ client.defineJob({
 
       const currentWaypointNav = ship.nav.route.destination
 
-      const currentWaypoint = (
-        await api.systems.getWaypoint({
-          systemSymbol: currentWaypointNav.systemSymbol,
-          waypointSymbol: currentWaypointNav.symbol,
-        })
-      ).data
+      const { data: currentWaypoint } = await runTaskSuperjson(
+        io,
+        'getCurrentWaypoint',
+        async () =>
+          api.systems.getWaypoint({
+            systemSymbol: currentWaypointNav.systemSymbol,
+            waypointSymbol: currentWaypointNav.symbol,
+          }),
+      )
 
       let docked = ship.nav.status === 'DOCKED'
 
@@ -63,15 +63,19 @@ client.defineJob({
       await io.logger.info(`Fuel: ${ship.fuel.current}/${ship.fuel.capacity}`)
       if (ship.fuel.current < 20) {
         if (!docked) {
-          await api.fleet.dockShip({
-            shipSymbol,
-          })
+          await runTaskSuperjson(io, 'dockShipBeforeRefuel', async () =>
+            api.fleet.dockShip({
+              shipSymbol,
+            }),
+          )
           docked = true
         }
         await io.logger.info(`Refueling`)
-        await api.fleet.refuelShip({
-          shipSymbol,
-        })
+        await runTaskSuperjson(io, 'refuelShip', async () =>
+          api.fleet.refuelShip({
+            shipSymbol,
+          }),
+        )
       }
 
       // Try mining
@@ -83,19 +87,25 @@ client.defineJob({
           // make sure to be in orbit
           if (docked) {
             await io.logger.info(`Orbiting`)
-            await api.fleet.orbitShip({
-              shipSymbol,
-            })
+            await runTaskSuperjson(io, 'orbitShipBeforeExtracting', async () =>
+              api.fleet.orbitShip({
+                shipSymbol,
+              }),
+            )
             docked = false
           }
 
           await io.logger.info(`Extracting more resources`)
+
           // Extract resources
-          const extractResult = (
-            await api.fleet.extractResources({
-              shipSymbol,
-            })
-          ).data
+          const { data: extractResult } = await runTaskSuperjson(
+            io,
+            'extractResources',
+            async () =>
+              api.fleet.extractResources({
+                shipSymbol,
+              }),
+          )
 
           // Wait for cooldown
           const cooldown = extractResult.cooldown.remainingSeconds
@@ -109,17 +119,24 @@ client.defineJob({
       }
 
       // Try trading
-      const sellableResources = await getTradeableResources({
-        waypointSymbol: currentWaypointNav.symbol,
-      })
+      const sellableResources = await runTaskSuperjson(
+        io,
+        'getSellableResources',
+        async () =>
+          getTradeableResources({
+            waypointSymbol: currentWaypointNav.symbol,
+          }),
+      )
       const resourcesToSell = ship.cargo.inventory.filter((i) =>
         sellableResources.includes(i.symbol),
       )
       if (resourcesToSell.length) {
         if (!docked) {
-          await api.fleet.dockShip({
-            shipSymbol,
-          })
+          await runTaskSuperjson(io, 'dockShipBeforeSelling', async () =>
+            api.fleet.dockShip({
+              shipSymbol,
+            }),
+          )
           docked = true
         }
         await io.logger.info(
@@ -128,13 +145,18 @@ client.defineJob({
             .join(', ')}`,
         )
         for (const resource of resourcesToSell) {
-          await api.fleet.sellCargo({
-            shipSymbol,
-            sellCargoRequest: {
-              symbol: resource.symbol,
-              units: resource.units,
-            },
-          })
+          await runTaskSuperjson(
+            io,
+            `sellingResource-${resource.symbol}`,
+            async () =>
+              api.fleet.sellCargo({
+                shipSymbol,
+                sellCargoRequest: {
+                  symbol: resource.symbol,
+                  units: resource.units,
+                },
+              }),
+          )
         }
         return
       }
@@ -146,45 +168,52 @@ client.defineJob({
         await io.logger.info(
           `Looking for a waypoint to sell ${resourceToSell.symbol}`,
         )
-        await io.wait('Waiting before searching Marketplaces (Rate Limit)', 2)
-        const waypointsRaw = (
-          await Promise.all([
-            (
-              await api.systems.getSystemWaypoints({
-                systemSymbol: getSystemSymbol(currentWaypointNav.symbol),
-                limit: 20,
-                traits: 'MARKETPLACE',
-                page: 1,
-              })
-            ).data,
-            (
-              await api.systems.getSystemWaypoints({
-                systemSymbol: getSystemSymbol(currentWaypointNav.symbol),
-                limit: 20,
-                traits: 'MARKETPLACE',
-                page: 2,
-              })
-            ).data,
-          ])
-        ).flat()
-        await io.wait('Waiting after searching Marketplaces (Rate Limit)', 2)
 
-        const waypoints = await Promise.all(
-          waypointsRaw.map(async (waypoint) => {
-            // const market = (
-            //   await api.systems.getMarket({
-            //     systemSymbol: waypoint.systemSymbol,
-            //     waypointSymbol: waypoint.symbol,
-            //   })
-            // ).data
-            const tradeableResources = await getTradeableResources({
-              waypointSymbol: waypoint.symbol,
-            })
-            return {
-              waypoint,
-              tradeableResources,
-            }
-          }),
+        const waypoints = await runTaskSuperjson(
+          io,
+          'getMarketWaypoints',
+          async () => {
+            const waypointsRaw = (
+              await Promise.all([
+                (
+                  await api.systems.getSystemWaypoints({
+                    systemSymbol: getSystemSymbol(currentWaypointNav.symbol),
+                    limit: 20,
+                    traits: 'MARKETPLACE',
+                    page: 1,
+                  })
+                ).data,
+                (
+                  await api.systems.getSystemWaypoints({
+                    systemSymbol: getSystemSymbol(currentWaypointNav.symbol),
+                    limit: 20,
+                    traits: 'MARKETPLACE',
+                    page: 2,
+                  })
+                ).data,
+              ])
+            ).flat()
+
+            const waypoints = await Promise.all(
+              waypointsRaw.map(async (waypoint) => {
+                // const market = (
+                //   await api.systems.getMarket({
+                //     systemSymbol: waypoint.systemSymbol,
+                //     waypointSymbol: waypoint.symbol,
+                //   })
+                // ).data
+                const tradeableResources = await getTradeableResources({
+                  waypointSymbol: waypoint.symbol,
+                })
+                return {
+                  waypoint,
+                  tradeableResources,
+                }
+              }),
+            )
+
+            return waypoints
+          },
         )
 
         let waypointsWithResource = waypoints.filter((w) =>
@@ -219,19 +248,26 @@ client.defineJob({
       // Fly back to astroid
       await io.logger.info(`Navigating to the next waypoint ${nextWaypoint}`)
       if (docked) {
-        await api.fleet.orbitShip({
-          shipSymbol,
-        })
+        await runTaskSuperjson(io, 'orbitShipBeforeNavigating', async () =>
+          api.fleet.orbitShip({
+            shipSymbol,
+          }),
+        )
         docked = false
       }
-      const navResult = (
-        await api.fleet.navigateShip({
-          shipSymbol,
-          navigateShipRequest: {
-            waypointSymbol: nextWaypoint,
-          },
-        })
-      ).data
+
+      const { data: navResult } = await runTaskSuperjson(
+        io,
+        'navigateShip',
+        async () =>
+          api.fleet.navigateShip({
+            shipSymbol,
+            navigateShipRequest: {
+              waypointSymbol: nextWaypoint,
+            },
+          }),
+      )
+
       const secondsToWait = Math.ceil(
         (navResult.nav.route.arrival.getTime() - Date.now()) / 1000,
       )
