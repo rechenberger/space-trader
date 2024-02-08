@@ -1,17 +1,20 @@
 'use client'
 
-import { Button } from '@/components/ui/button'
+import { Button, ButtonProps } from '@/components/ui/button'
 import { ReactNode, useEffect, useState } from 'react'
 
 const CooldownButton = ({
   expiration,
   children,
+  ...props
 }: {
   expiration?: Date
   children?: ReactNode
-}) => {
+} & ButtonProps) => {
   const [cd, setCd] = useState(
-    expiration ? Math.floor((expiration.getTime() - Date.now()) / 1000) : 0,
+    expiration
+      ? Math.max(Math.floor((expiration.getTime() - Date.now()) / 1000), 0)
+      : 0,
   )
 
   useEffect(() => {
@@ -23,13 +26,13 @@ const CooldownButton = ({
 
   useEffect(() => {
     if (expiration) {
-      setCd(Math.floor((expiration.getTime() - Date.now()) / 1000))
+      setCd(Math.max(Math.floor((expiration.getTime() - Date.now()) / 1000), 0))
     }
   }, [expiration])
 
   return (
     <>
-      <Button type="submit" disabled={!!cd}>
+      <Button type="submit" disabled={!!cd} {...props}>
         {children} {cd ? `(${cd}s)` : null}
       </Button>
     </>
