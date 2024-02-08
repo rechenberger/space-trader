@@ -91,7 +91,7 @@ export const MyShips = async () => {
             ))}
             <div className="flex-1"></div>
             <hr className="" />
-            <div className="flex flex-row justify-end gap-4">
+            <div className="flex flex-row justify-end gap-2">
               <form
                 action={async () => {
                   'use server'
@@ -112,6 +112,7 @@ export const MyShips = async () => {
                 <CooldownButton
                   expiration={ship.nav.route.arrival}
                   variant="secondary"
+                  size="sm"
                 >
                   {ship.nav.status === 'DOCKED' ? 'Orbit' : 'Dock'}
                 </CooldownButton>
@@ -126,7 +127,7 @@ export const MyShips = async () => {
                   revalidatePath('/game')
                 }}
               >
-                <Button type="submit" variant="secondary">
+                <Button type="submit" variant="secondary" size="sm">
                   Refuel
                 </Button>
               </form>
@@ -144,6 +145,7 @@ export const MyShips = async () => {
                   <CooldownButton
                     expiration={ship.cooldown.expiration}
                     variant="secondary"
+                    size="sm"
                   >
                     Extract
                   </CooldownButton>
