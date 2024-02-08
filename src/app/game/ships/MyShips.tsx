@@ -18,8 +18,8 @@ export const MyShips = async () => {
           <Card key={idx} className="p-4 flex flex-col gap-2">
             <div className="flex flex-row justify-between">
               <div className="font-bold">{ship.symbol}</div>
-              <div className="text-muted-foreground">
-                {ship.registration.role}
+              <div className="text-muted-foreground capitalize">
+                {ship.registration.role.toLowerCase()}
               </div>
             </div>
             <div
