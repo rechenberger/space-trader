@@ -1,4 +1,4 @@
-import { Button } from '@/components/ui/button'
+import { SubmitButton } from '@/components/app/SubmitButton'
 import { Card } from '@/components/ui/card'
 import { formatNumber } from '@/lib/formatNumber'
 import { initAgentApi } from '@/server/initAgentApi'
@@ -121,7 +121,7 @@ export const FindShipyard = async ({
                         revalidatePath('/game')
                       }}
                     >
-                      <Button type="submit">Buy</Button>
+                      <SubmitButton>Buy</SubmitButton>
                     </form>
                   </Card>
                 ))}

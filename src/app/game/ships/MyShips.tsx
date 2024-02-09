@@ -1,3 +1,4 @@
+import { SubmitButton } from '@/components/app/SubmitButton'
 import { Button } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
 import { initAgentApi } from '@/server/initAgentApi'
@@ -100,15 +101,13 @@ export const MyShips = async () => {
                   'use server'
                   const api = await initAgentApi()
                   if (ship.nav.status === 'DOCKED') {
-                    const result = await api.fleet.orbitShip({
+                    await api.fleet.orbitShip({
                       shipSymbol: ship.symbol,
                     })
-                    console.log('orbit result', result)
                   } else {
-                    const result = await api.fleet.dockShip({
+                    await api.fleet.dockShip({
                       shipSymbol: ship.symbol,
                     })
-                    console.log('dock result', result)
                   }
                   revalidatePath('/game')
                 }}
@@ -132,9 +131,9 @@ export const MyShips = async () => {
                   revalidatePath('/game')
                 }}
               >
-                <Button type="submit" variant="secondary" size="sm">
+                <SubmitButton variant="secondary" size="sm">
                   Refuel
-                </Button>
+                </SubmitButton>
               </form>
               <form
                 action={async () => {

@@ -1,6 +1,7 @@
 'use client'
 
-import { Button, ButtonProps } from '@/components/ui/button'
+import { SubmitButton } from '@/components/app/SubmitButton'
+import { ButtonProps } from '@/components/ui/button'
 import { ReactNode, useEffect, useState } from 'react'
 
 const CooldownButton = ({
@@ -32,9 +33,9 @@ const CooldownButton = ({
 
   return (
     <>
-      <Button type="submit" disabled={!!cd} {...props}>
+      <SubmitButton type="submit" disabled={!!cd} {...props}>
         {children} {cd ? `(${cd}s)` : null}
-      </Button>
+      </SubmitButton>
     </>
   )
 }

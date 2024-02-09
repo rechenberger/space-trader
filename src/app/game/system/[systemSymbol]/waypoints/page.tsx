@@ -1,4 +1,4 @@
-import { Button } from '@/components/ui/button'
+import { SubmitButton } from '@/components/app/SubmitButton'
 import { Card } from '@/components/ui/card'
 import { initAgentApi } from '@/server/initAgentApi'
 import { getSelectedShipSymbolOrThrow } from '@/server/selectedShipSymbol'
@@ -141,9 +141,9 @@ export default async function Page({
                   revalidatePath('/game')
                 }}
               >
-                <Button type="submit" variant="secondary" size="sm">
+                <SubmitButton variant="secondary" size="sm">
                   Navigate
-                </Button>
+                </SubmitButton>
               </form>
             </div>
           </Card>
