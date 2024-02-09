@@ -1,4 +1,3 @@
-import { LocalDateTime } from '@/components/demo/LocalDateTime'
 import { Button } from '@/components/ui/button'
 import {
   DropdownMenu,
@@ -13,6 +12,7 @@ import { ChevronDown, LogOut, User, UserPlus } from 'lucide-react'
 import Link from 'next/link'
 import { redirect } from 'next/navigation'
 import { Fragment } from 'react'
+import { SavedTokenDetails } from './SavedTokenDetails'
 
 export const AgentSelector = async () => {
   const savedTokens = await getSavedTokens()
@@ -46,26 +46,10 @@ export const AgentSelector = async () => {
                   >
                     <div className="flex flex-col gap-1 text-left p-2">
                       <div className="font-bold">{t.agentSymbol}</div>
-                      <div className="grid grid-cols-[auto_1fr] gap-y-1 gap-x-2 text-xs">
-                        <>
-                          <div className="">Faction</div>
-                          <div className="text-muted-foreground">
-                            {t.startingFaction}
-                          </div>
-                        </>
-                        <>
-                          <div className="">Headquarters</div>
-                          <div className="text-muted-foreground">
-                            {t.headquarters}
-                          </div>
-                        </>
-                        <>
-                          <div className="">Added</div>
-                          <div className="text-muted-foreground">
-                            <LocalDateTime datetime={t.addedAt} />
-                          </div>
-                        </>
-                      </div>
+                      <SavedTokenDetails
+                        t={t}
+                        className=" gap-y-1 gap-x-2 text-xs"
+                      />
                     </div>
                   </DropdownMenuCheckboxItem>
                 </button>

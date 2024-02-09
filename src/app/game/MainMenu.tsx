@@ -32,6 +32,11 @@ export const MainMenu = async ({
             Contracts
           </Button>
         </Link>
+        <Link href="/game/account">
+          <Button variant="ghost" className="w-full justify-start">
+            Account
+          </Button>
+        </Link>
 
         <h2 className="mt-8 mb-2 px-4 text-lg font-semibold tracking-tight">
           System <span className="text-muted-foreground">{systemSymbol}</span>
