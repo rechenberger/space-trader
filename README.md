@@ -1,4 +1,31 @@
-## Generate SDK:
+# SpaceTraders
+
+A simple NextJS app to interact with the [SpaceTraders API](https://spacetraders.io/).
+
+![Screenshot](./public/screenshot-01.png)
+
+## Features
+
+- No Database (only saves login in cookies)
+- Entirely written with NextJS [App Router](https://nextjs.org/docs/app) and [Server Actions](https://nextjs.org/docs/app/building-your-application/data-fetching/server-actions-and-mutations)
+- Multi-Login Support (switch between accounts)
+- Automation done with [trigger.dev](https://trigger.dev/)
+
+## Development
+
+- Clone the repository
+- `pnpm install`
+- `pnpm dev`
+
+### Develop Automation
+
+- Create `.env.local` file
+- Provide Secrets for trigger.dev
+- `pnpm trigger`
+
+### Re-Generate SDK:
+
+Might be necessary to re-generate the SDK if the API changes in the future.
 
 ```bash
 openapi-generator generate \
@@ -13,4 +40,4 @@ openapi-generator generate \
  --additional-properties=apiPackage="api"
 ```
 
-delete waypoint trait paramater file as its corrupt and replace references with `any`
+- Delete waypoint trait parameter file as its corrupt and replace references with `any`
