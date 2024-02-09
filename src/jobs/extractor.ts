@@ -1,4 +1,4 @@
-import { api } from '@/server/api'
+import { initApi } from '@/server/api'
 import { runTaskSuperjson } from '@/server/runTaskSuperjson'
 import { client } from '@/trigger'
 import { eventTrigger } from '@trigger.dev/sdk'
@@ -12,6 +12,7 @@ client.defineJob({
     name: 'extractor.event',
   }),
   run: async (payload, io, ctx) => {
+    const api = initApi({ token: process.env.ST_TOKEN! })
     const shipSymbol = 'TINGO-3'
     await io.logger.info(`Starting the extractor job for ship ${shipSymbol}`)
 
@@ -124,6 +125,7 @@ client.defineJob({
         'getSellableResources',
         async () =>
           getTradeableResources({
+            api,
             waypointSymbol: currentWaypointNav.symbol,
           }),
       )
@@ -203,6 +205,7 @@ client.defineJob({
                 //   })
                 // ).data
                 const tradeableResources = await getTradeableResources({
+                  api,
                   waypointSymbol: waypoint.symbol,
                 })
                 return {
@@ -283,8 +286,10 @@ client.defineJob({
 
 const getTradeableResources = async ({
   waypointSymbol,
+  api,
 }: {
   waypointSymbol: string
+  api: ReturnType<typeof initApi>
 }) => {
   const market = (
     await api.systems.getMarket({

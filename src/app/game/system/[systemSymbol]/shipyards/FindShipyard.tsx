@@ -1,7 +1,7 @@
 import { Button } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
 import { formatNumber } from '@/lib/formatNumber'
-import { api } from '@/server/api'
+import { initAgentApi } from '@/server/initAgentApi'
 import { capitalCase } from 'change-case'
 import { revalidatePath } from 'next/cache'
 
@@ -10,6 +10,8 @@ export const FindShipyard = async ({
 }: {
   systemSymbol: string
 }) => {
+  const api = await initAgentApi()
+
   const waypoints = await api.systems.getSystemWaypoints({
     systemSymbol,
     traits: 'SHIPYARD',

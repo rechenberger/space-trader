@@ -35,4 +35,4 @@ export const initApi = ({ token }: { token?: string }) => {
   return api
 }
 
-export const api = initApi({ token: process.env.ST_TOKEN! })
+// export const api = initApi({ token: process.env.ST_TOKEN! })

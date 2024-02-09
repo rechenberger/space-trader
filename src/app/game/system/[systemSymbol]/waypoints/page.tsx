@@ -1,6 +1,6 @@
 import { Button } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
-import { api } from '@/server/api'
+import { initAgentApi } from '@/server/initAgentApi'
 import { capitalCase } from 'change-case'
 import { revalidatePath } from 'next/cache'
 import { WaypointType } from '../../../../../../packages/spacetraders-sdk/src'
@@ -20,6 +20,8 @@ export default async function Page({
     type?: WaypointType
   }
 }) {
+  const api = await initAgentApi()
+
   const systemSymbol = params.systemSymbol
   const trait = searchParams.trait ?? defaultTrait
   const type = searchParams.type

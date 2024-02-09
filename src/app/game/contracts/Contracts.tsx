@@ -2,12 +2,13 @@ import { LocalDateTime } from '@/components/demo/LocalDateTime'
 import { Button } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
 import { formatNumber } from '@/lib/formatNumber'
-import { api } from '@/server/api'
+import { initAgentApi } from '@/server/initAgentApi'
 import { capitalCase } from 'change-case'
 import { revalidatePath } from 'next/cache'
 import { Fragment } from 'react'
 
 export const Contracts = async () => {
+  const api = await initAgentApi()
   const myContracts = await api.contracts.getContracts()
 
   return (

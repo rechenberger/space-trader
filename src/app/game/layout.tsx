@@ -1,7 +1,7 @@
 import { LocalTime } from '@/components/demo/LocalDateTime'
 import { Button } from '@/components/ui/button'
 import { formatNumber } from '@/lib/formatNumber'
-import { api } from '@/server/api'
+import { initAgentApi } from '@/server/initAgentApi'
 import { take } from 'lodash-es'
 import Link from 'next/link'
 import { AgentSelector } from '../auth/AgentSelector'
@@ -13,6 +13,7 @@ export default async function Page({
 }: {
   children: React.ReactNode
 }) {
+  const api = await initAgentApi()
   const { data: myAgent } = await api.agents.getMyAgent()
   const waypointSymbol = myAgent.headquarters
   const systemSymbol = take(waypointSymbol.split('-'), 2).join('-')

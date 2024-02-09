@@ -1,6 +1,6 @@
 import { Button } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
-import { api } from '@/server/api'
+import { initAgentApi } from '@/server/initAgentApi'
 import { capitalCase } from 'change-case'
 import { revalidatePath } from 'next/cache'
 import dynamic from 'next/dynamic'
@@ -11,6 +11,7 @@ const CooldownButton = dynamic(() => import('./CooldownButton'), {
 })
 
 export const MyShips = async () => {
+  const api = await initAgentApi()
   const ships = (await api.fleet.getMyShips()).data
   return (
     <>

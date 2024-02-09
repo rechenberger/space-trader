@@ -1,6 +1,7 @@
-import { api } from '@/server/api'
+import { initAgentApi } from '@/server/initAgentApi'
 
 export default async function Page() {
+  const api = await initAgentApi()
   const agents = await api.agents.getMyAgent({})
   return (
     <>
