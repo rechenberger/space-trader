@@ -2,6 +2,8 @@
 
 A simple NextJS app to interact with the [SpaceTraders API](https://spacetraders.io/).
 
+Try it out at [spacetraders.rechenberger.io](https://spacetraders.rechenberger.io/).
+
 ![Screenshot](./public/screenshot-01.png)
 
 ## Features
