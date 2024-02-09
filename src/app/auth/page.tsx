@@ -12,6 +12,7 @@ import { initApi } from '@/server/api'
 import { getToken, login } from '@/server/auth'
 import { ArrowRight } from 'lucide-react'
 import Link from 'next/link'
+import { redirect } from 'next/navigation'
 
 export default async function Page() {
   const token = await getToken()
@@ -57,6 +58,7 @@ export default async function Page() {
                 })
                 const token = registerResult.token
                 await login({ token })
+                redirect('/game')
               }}
             >
               <Label className="flex flex-col gap-2">
@@ -90,6 +92,7 @@ export default async function Page() {
                   throw new Error('Token is required')
                 }
                 await login({ token })
+                redirect('/game')
               }}
             >
               <Label className="flex flex-col gap-2">
