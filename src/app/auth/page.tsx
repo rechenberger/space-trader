@@ -1,3 +1,4 @@
+import { SubmitButton } from '@/components/app/SubmitButton'
 import { Button } from '@/components/ui/button'
 import {
   Card,
@@ -69,9 +70,7 @@ export default async function Page() {
                   placeholder="Name of your Agent"
                 />
               </Label>
-              <Button type="submit" variant={'secondary'}>
-                Register
-              </Button>
+              <SubmitButton variant={'secondary'}>Register</SubmitButton>
             </form>
           </CardContent>
         </Card>
@@ -103,9 +102,7 @@ export default async function Page() {
                   placeholder="eyXXXXXXXXXXXXXXX"
                 />
               </Label>
-              <Button type="submit" variant={'secondary'}>
-                Login
-              </Button>
+              <SubmitButton variant={'secondary'}>Login</SubmitButton>
             </form>
           </CardContent>
         </Card>
