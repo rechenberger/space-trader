@@ -1,13 +1,16 @@
 import { LocalDateTime } from '@/components/demo/LocalDateTime'
 import { cn } from '@/lib/utils'
 import { SavedToken } from '@/server/auth'
+import { SecretInput } from '../game/account/SecretInput'
 
 export const SavedTokenDetails = ({
   t,
   className,
+  showToken,
 }: {
   t: SavedToken
   className?: string
+  showToken?: boolean
 }) => {
   return (
     <>
@@ -26,6 +29,14 @@ export const SavedTokenDetails = ({
             <LocalDateTime datetime={t.addedAt} />
           </div>
         </>
+        {showToken && (
+          <>
+            <div className="">Token</div>
+            <div className="text-muted-foreground">
+              <SecretInput value={t.token} />
+            </div>
+          </>
+        )}
       </div>
     </>
   )

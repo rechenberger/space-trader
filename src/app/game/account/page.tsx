@@ -16,7 +16,11 @@ export default async function Page() {
           </CardTitle>
         </CardHeader>
         <CardContent>
-          <SavedTokenDetails t={savedToken} />
+          <SavedTokenDetails
+            t={savedToken}
+            showToken
+            className="gap-y-4 gap-x-8"
+          />
         </CardContent>
       </Card>
     </>
