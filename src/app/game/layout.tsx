@@ -1,9 +1,11 @@
 import { LocalTime } from '@/components/demo/LocalDateTime'
 import { Button } from '@/components/ui/button'
 import { formatNumber } from '@/lib/formatNumber'
+import { getToken } from '@/server/auth'
 import { initAgentApi } from '@/server/initAgentApi'
 import { take } from 'lodash-es'
 import Link from 'next/link'
+import { redirect } from 'next/navigation'
 import { AgentSelector } from '../auth/AgentSelector'
 
 export const dynamic = 'force-dynamic'
@@ -13,6 +15,10 @@ export default async function Page({
 }: {
   children: React.ReactNode
 }) {
+  const token = await getToken()
+  if (!token) {
+    redirect('/auth')
+  }
   const api = await initAgentApi()
   const { data: myAgent } = await api.agents.getMyAgent()
   const waypointSymbol = myAgent.headquarters

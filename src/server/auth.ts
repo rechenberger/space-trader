@@ -58,3 +58,7 @@ export const login = async ({ token }: { token: string }) => {
     throw new Error('Invalid token')
   }
 }
+
+export const logout = async () => {
+  cookies().delete('token')
+}

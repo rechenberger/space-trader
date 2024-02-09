@@ -8,9 +8,10 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
-import { getSavedTokens, getToken, login } from '@/server/auth'
-import { ChevronDown, User, UserPlus } from 'lucide-react'
+import { getSavedTokens, getToken, login, logout } from '@/server/auth'
+import { ChevronDown, LogOut, User, UserPlus } from 'lucide-react'
 import Link from 'next/link'
+import { redirect } from 'next/navigation'
 import { Fragment } from 'react'
 
 export const AgentSelector = async () => {
@@ -78,6 +79,20 @@ export const AgentSelector = async () => {
               Add more Accounts
             </DropdownMenuItem>
           </Link>
+          <form
+            action={async () => {
+              'use server'
+              await logout()
+              redirect('/auth')
+            }}
+          >
+            <button type="submit" className="w-full cursor-pointer">
+              <DropdownMenuItem className="cursor-pointer">
+                <LogOut className="h-4 w-4 mr-4" />
+                Logout
+              </DropdownMenuItem>
+            </button>
+          </form>
         </DropdownMenuContent>
       </DropdownMenu>
     </>

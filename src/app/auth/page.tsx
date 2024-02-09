@@ -9,12 +9,26 @@ import {
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { initApi } from '@/server/api'
-import { login } from '@/server/auth'
+import { getToken, login } from '@/server/auth'
+import Link from 'next/link'
+import { AgentSelector } from './AgentSelector'
 
 export default async function Page() {
+  const token = await getToken()
   return (
     <>
-      <h1>Auth</h1>
+      <div className="flex flex-row items-center gap-4">
+        <div className="flex-1">
+          <div className="text-muted-foreground">Welcome to</div>
+          <h1 className="text-3xl">SpaceTrader</h1>
+        </div>
+        <AgentSelector />
+        {!!token && (
+          <Link href="/game">
+            <Button>Jump back into Game</Button>
+          </Link>
+        )}
+      </div>
 
       <div className="grid grid-cols-2 gap-4">
         <Card>
@@ -50,7 +64,9 @@ export default async function Page() {
                   placeholder="Name of your Agent"
                 />
               </Label>
-              <Button type="submit">Register</Button>
+              <Button type="submit" variant={'secondary'}>
+                Register
+              </Button>
             </form>
           </CardContent>
         </Card>
@@ -81,7 +97,9 @@ export default async function Page() {
                   placeholder="eyXXXXXXXXXXXXXXX"
                 />
               </Label>
-              <Button type="submit">Login</Button>
+              <Button type="submit" variant={'secondary'}>
+                Login
+              </Button>
             </form>
           </CardContent>
         </Card>
