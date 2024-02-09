@@ -33,7 +33,7 @@ export const SavedTokenDetails = ({
           <>
             <div className="">Token</div>
             <div className="text-muted-foreground">
-              <SecretInput value={t.token} />
+              <SecretInput value={t.token} readOnly />
             </div>
           </>
         )}
