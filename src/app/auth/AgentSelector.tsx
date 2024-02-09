@@ -79,20 +79,22 @@ export const AgentSelector = async () => {
               Add more Accounts
             </DropdownMenuItem>
           </Link>
-          <form
-            action={async () => {
-              'use server'
-              await logout()
-              redirect('/auth')
-            }}
-          >
-            <button type="submit" className="w-full cursor-pointer">
-              <DropdownMenuItem className="cursor-pointer">
-                <LogOut className="h-4 w-4 mr-4" />
-                Logout
-              </DropdownMenuItem>
-            </button>
-          </form>
+          {!!token && (
+            <form
+              action={async () => {
+                'use server'
+                await logout()
+                redirect('/auth')
+              }}
+            >
+              <button type="submit" className="w-full cursor-pointer">
+                <DropdownMenuItem className="cursor-pointer">
+                  <LogOut className="h-4 w-4 mr-4" />
+                  Logout
+                </DropdownMenuItem>
+              </button>
+            </form>
+          )}
         </DropdownMenuContent>
       </DropdownMenu>
     </>

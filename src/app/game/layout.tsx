@@ -6,7 +6,6 @@ import { initAgentApi } from '@/server/initAgentApi'
 import { take } from 'lodash-es'
 import Link from 'next/link'
 import { redirect } from 'next/navigation'
-import { AgentSelector } from '../auth/AgentSelector'
 
 export const dynamic = 'force-dynamic'
 
@@ -33,7 +32,6 @@ export default async function Page({
         <div>
           <strong>{formatNumber(myAgent.credits)}</strong> Credits
         </div>
-        <AgentSelector />
       </div>
       <div className="flex flex-row gap-8">
         <nav className="flex flex-col w-48">

@@ -10,8 +10,8 @@ import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { initApi } from '@/server/api'
 import { getToken, login } from '@/server/auth'
+import { ArrowRight } from 'lucide-react'
 import Link from 'next/link'
-import { AgentSelector } from './AgentSelector'
 
 export default async function Page() {
   const token = await getToken()
@@ -22,10 +22,13 @@ export default async function Page() {
           <div className="text-muted-foreground">Welcome to</div>
           <h1 className="text-3xl">SpaceTrader</h1>
         </div>
-        <AgentSelector />
+        {/* <AgentSelector /> */}
         {!!token && (
           <Link href="/game">
-            <Button>Jump back into Game</Button>
+            <Button className="flex flex-row gap-2">
+              <div>Jump back into Game</div>
+              <ArrowRight className="w-4 h-4" />
+            </Button>
           </Link>
         )}
       </div>
