@@ -39,7 +39,10 @@ export const AgentSelector = async () => {
                 }}
               >
                 <button type="submit" className="w-full cursor-pointer">
-                  <DropdownMenuCheckboxItem checked className="cursor-pointer">
+                  <DropdownMenuCheckboxItem
+                    checked={token === t.token}
+                    className="cursor-pointer"
+                  >
                     <div className="flex flex-col gap-1 text-left p-2">
                       <div className="font-bold">{t.agentSymbol}</div>
                       <div className="grid grid-cols-[auto_1fr] gap-y-1 gap-x-2 text-xs">

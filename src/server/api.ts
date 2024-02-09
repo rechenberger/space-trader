@@ -1,13 +1,14 @@
 import {
   AgentsApi,
   ContractsApi,
+  DefaultApi,
   FleetApi,
   SystemsApi,
 } from '../../packages/spacetraders-sdk/src'
 
-export const initApi = ({ token }: { token: string }) => {
+export const initApi = ({ token }: { token?: string }) => {
   const headers = {
-    Authorization: `Bearer ${token}`,
+    Authorization: token ? `Bearer ${token}` : undefined,
     'Content-Type': 'application/json',
   }
 
@@ -28,6 +29,7 @@ export const initApi = ({ token }: { token: string }) => {
     fleet: new FleetApi().withMiddleware(middleware),
     contracts: new ContractsApi().withMiddleware(middleware),
     systems: new SystemsApi().withMiddleware(middleware),
+    default: new DefaultApi().withMiddleware(middleware),
   }
 
   return api
