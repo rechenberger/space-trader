@@ -46,7 +46,7 @@ export default async function Page({
           <strong>{formatNumber(myAgent.credits)}</strong> Credits
         </div>
       </div>
-      <div className="flex flex-row gap-8">
+      <div className="flex-1 flex flex-row gap-8">
         <MainMenu myAgent={myAgent} className="max-lg:hidden w-48" />
         <div className="flex flex-col gap-8 flex-1">{children}</div>
       </div>
