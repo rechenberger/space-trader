@@ -13,7 +13,7 @@ export const Contracts = async () => {
 
   return (
     <>
-      <div className="grid grid-cols-3 gap-4">
+      <div className="grid lg:grid-cols-3 gap-4">
         {myContracts.data.map((contract) => {
           return (
             <Fragment key={contract.id}>

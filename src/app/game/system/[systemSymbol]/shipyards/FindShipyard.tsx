@@ -68,7 +68,7 @@ export const FindShipyard = async ({
           {shipyard.shipyard.ships?.length ? (
             <>
               <br className="my-2" />
-              <div className="grid grid-cols-3 gap-4">
+              <div className="grid lg:grid-cols-3 gap-4">
                 {shipyard.shipyard.ships?.map((ship, idx) => (
                   <Card key={idx} className="p-4 text-sm flex flex-col gap-2">
                     <div className="flex flex-row justify-between">

@@ -15,7 +15,7 @@ export const MyShips = async () => {
   const ships = (await api.fleet.getMyShips()).data
   return (
     <>
-      <div className="grid grid-cols-3 gap-4">
+      <div className="grid lg:grid-cols-3 gap-4">
         {ships.map((ship, idx) => (
           <Card key={idx} className="p-4 flex flex-col gap-2 text-sm">
             <div className="flex flex-row justify-between">

@@ -17,7 +17,7 @@ export default async function Page() {
   const token = await getToken()
   return (
     <>
-      <div className="flex flex-row items-center gap-4">
+      <div className="flex flex-col lg:flex-row items-center gap-4">
         <div className="flex-1">
           <div className="text-muted-foreground">Welcome to</div>
           <h1 className="text-3xl">SpaceTrader</h1>
@@ -33,7 +33,7 @@ export default async function Page() {
         )}
       </div>
 
-      <div className="grid grid-cols-2 gap-4">
+      <div className="grid lg:grid-cols-2 gap-4">
         <Card>
           <CardHeader>
             <CardTitle>Register</CardTitle>

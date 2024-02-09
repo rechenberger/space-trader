@@ -60,7 +60,7 @@ export default async function Page({
           max={Math.ceil(pageInfo.total / pageInfo.limit)}
         />
       </div>
-      <div className="grid grid-cols-3 gap-4">
+      <div className="grid lg:grid-cols-3 gap-4">
         {waypoints.map((w) => (
           <Card
             key={w.waypoint.symbol}
