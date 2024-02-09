@@ -1,6 +1,8 @@
 import { initApi } from '@/server/api'
+import { first } from 'lodash-es'
 import { cookies } from 'next/headers'
 import { z } from 'zod'
+import { setSelectedShipSymbol } from './selectedShipSymbol'
 
 export const SavedToken = z.object({
   token: z.string(),
@@ -54,6 +56,11 @@ export const login = async ({ token }: { token: string }) => {
       })
     }
     cookies().set('tokens', JSON.stringify(allTokens))
+
+    const { data: ships } = await api.fleet.getMyShips()
+    await setSelectedShipSymbol({
+      selectedShipSymbol: first(ships)?.symbol || '',
+    })
   } catch (error) {
     throw new Error('Invalid token')
   }

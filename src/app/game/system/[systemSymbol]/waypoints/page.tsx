@@ -1,6 +1,7 @@
 import { Button } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
 import { initAgentApi } from '@/server/initAgentApi'
+import { getSelectedShipSymbolOrThrow } from '@/server/selectedShipSymbol'
 import { capitalCase } from 'change-case'
 import { revalidatePath } from 'next/cache'
 import { WaypointType } from '../../../../../../packages/spacetraders-sdk/src'
@@ -126,7 +127,10 @@ export default async function Page({
                 action={async () => {
                   'use server'
                   const api = await initAgentApi()
-                  const shipSymbol = 'TINGO-3'
+                  const shipSymbol = await getSelectedShipSymbolOrThrow()
+                  await api.fleet.orbitShip({
+                    shipSymbol,
+                  })
                   const result = await api.fleet.navigateShip({
                     shipSymbol,
                     navigateShipRequest: {

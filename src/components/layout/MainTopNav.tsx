@@ -1,4 +1,5 @@
 import { AgentSelector } from '@/app/auth/AgentSelector'
+import { ShipSelector } from '@/app/auth/ShipSelector'
 import { cn } from '@/lib/utils'
 import { getSavedTokens } from '@/server/auth'
 
@@ -17,6 +18,7 @@ export async function MainTopNav({
     >
       <div className="flex-1" />
       {savedTokens.length ? <AgentSelector /> : null}
+      {savedTokens.length ? <ShipSelector /> : null}
     </nav>
   )
 }
