@@ -20,7 +20,7 @@ export const MainTop = () => {
         </div>
         <div className="flex flex-row">
           <Link
-            href="https://github.com/rechenberger/space-trader/tree/main"
+            href="https://github.com/rechenberger/space-trader"
             target="_blank"
           >
             <Button variant={'ghost'} size="icon">
