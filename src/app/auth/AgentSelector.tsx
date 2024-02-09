@@ -21,7 +21,7 @@ export const AgentSelector = async () => {
   return (
     <>
       <DropdownMenu>
-        <DropdownMenuTrigger>
+        <DropdownMenuTrigger asChild>
           <Button variant={'outline'} className="flex flex-row gap-2">
             <User className="h-4 w-4" />
             <span>
