@@ -27,6 +27,16 @@ export const getToken = async () => {
   return typeof token?.value === 'string' ? token.value : undefined
 }
 
+export const getSavedToken = async () => {
+  const token = await getToken()
+  const allTokens = await getSavedTokens()
+  const savedToken = allTokens.find((t) => t.token === token)
+  if (!savedToken) {
+    throw new Error('No saved token found')
+  }
+  return savedToken
+}
+
 export const login = async ({ token }: { token: string }) => {
   const api = initApi({ token })
   try {

@@ -8,10 +8,10 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
+import { getSavedTokens, getToken, login } from '@/server/auth'
 import { ChevronDown, User, UserPlus } from 'lucide-react'
 import Link from 'next/link'
 import { Fragment } from 'react'
-import { getSavedTokens, getToken, login } from './auth'
 
 export const AgentSelector = async () => {
   const savedTokens = await getSavedTokens()

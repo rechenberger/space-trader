@@ -9,7 +9,7 @@ import {
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { initApi } from '@/server/api'
-import { login } from './auth'
+import { login } from '@/server/auth'
 
 export default async function Page() {
   return (
