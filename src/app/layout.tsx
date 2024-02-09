@@ -4,7 +4,7 @@ import type { Metadata } from 'next'
 import './globals.css'
 
 export const metadata: Metadata = {
-  title: 'Space Trader',
+  title: 'Space Traders',
   description: 'powered by teampilot.ai',
 }
 

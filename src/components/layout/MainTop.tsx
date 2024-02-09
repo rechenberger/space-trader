@@ -11,7 +11,7 @@ export const MainTop = () => {
         <Link href="/" className="flex flex-row items-center gap-3">
           <div className="text-xl">
             <strong>
-              Space <span className="text-primary">Trader</span>
+              Space <span className="text-primary">Traders</span>
             </strong>
           </div>
         </Link>
