@@ -25,7 +25,7 @@ export const MyShips = async () => {
               </div>
             </div>
             <div
-              className="truncate text-muted-foreground"
+              className="line-clamp-1 text-muted-foreground"
               title={ship.modules.map((m) => m.name).join(', ') || 'No Modules'}
             >
               {ship.modules.map((m) => m.name).join(', ') || 'No Modules'}
@@ -47,7 +47,7 @@ export const MyShips = async () => {
                 </div>
               )}
             </div>
-            <div className="truncate flex flex-row justify-between gap-2">
+            <div className="truncate flex flex-col lg:flex-row justify-between gap-2">
               {capitalCase(ship.nav.status)}{' '}
               <span className="text-muted-foreground">
                 @ {ship.nav.route.destination.symbol} (
