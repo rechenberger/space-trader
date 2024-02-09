@@ -51,7 +51,7 @@ export default async function Page({
 
   return (
     <>
-      <div className="flex flex-row -mb-4 items-center gap-4">
+      <div className="flex flex-col lg:flex-row -mb-4 items-center gap-4">
         <TraitSelect value={trait} />
         <WaypointTypeSelect value={type} />
         <div className="flex-1"></div>
