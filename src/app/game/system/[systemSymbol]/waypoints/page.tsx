@@ -125,6 +125,7 @@ export default async function Page({
               <form
                 action={async () => {
                   'use server'
+                  const api = await initAgentApi()
                   const shipSymbol = 'TINGO-3'
                   const result = await api.fleet.navigateShip({
                     shipSymbol,

@@ -109,6 +109,7 @@ export const FindShipyard = async ({
                     <form
                       action={async () => {
                         'use server'
+                        const api = await initAgentApi()
                         console.log('buying ship', ship.type)
                         const result = await api.fleet.purchaseShip({
                           purchaseShipRequest: {

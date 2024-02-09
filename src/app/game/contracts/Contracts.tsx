@@ -83,6 +83,7 @@ export const Contracts = async () => {
                     <form
                       action={async () => {
                         'use server'
+                        const api = await initAgentApi()
                         const result = await api.contracts.acceptContract({
                           contractId: contract.id,
                         })

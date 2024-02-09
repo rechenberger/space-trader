@@ -74,6 +74,7 @@ export const MyShips = async () => {
                 <form
                   action={async () => {
                     'use server'
+                    const api = await initAgentApi()
                     const result = await api.fleet.sellCargo({
                       shipSymbol: ship.symbol,
                       sellCargoRequest: {
@@ -97,6 +98,7 @@ export const MyShips = async () => {
               <form
                 action={async () => {
                   'use server'
+                  const api = await initAgentApi()
                   if (ship.nav.status === 'DOCKED') {
                     const result = await api.fleet.orbitShip({
                       shipSymbol: ship.symbol,
@@ -122,6 +124,7 @@ export const MyShips = async () => {
               <form
                 action={async () => {
                   'use server'
+                  const api = await initAgentApi()
                   const result = await api.fleet.refuelShip({
                     shipSymbol: ship.symbol,
                   })
@@ -136,6 +139,7 @@ export const MyShips = async () => {
               <form
                 action={async () => {
                   'use server'
+                  const api = await initAgentApi()
                   const result = await api.fleet.extractResources({
                     shipSymbol: ship.symbol,
                   })
