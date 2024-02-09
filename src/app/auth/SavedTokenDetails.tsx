@@ -6,10 +6,12 @@ import { SecretInput } from '../game/account/SecretInput'
 export const SavedTokenDetails = ({
   t,
   className,
+  showAccountId,
   showToken,
 }: {
   t: SavedToken
   className?: string
+  showAccountId?: boolean
   showToken?: boolean
 }) => {
   return (
@@ -29,6 +31,14 @@ export const SavedTokenDetails = ({
             <LocalDateTime datetime={t.addedAt} />
           </div>
         </>
+        {showAccountId && (
+          <>
+            <div className="">Account Id</div>
+            <div className="text-muted-foreground">
+              {t.accountId || 'No Account Id'}
+            </div>
+          </>
+        )}
         {showToken && (
           <>
             <div className="">Token</div>

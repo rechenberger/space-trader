@@ -18,8 +18,9 @@ export default async function Page() {
         <CardContent>
           <SavedTokenDetails
             t={savedToken}
+            showAccountId
             showToken
-            className="gap-y-4 gap-x-8"
+            className="text-xs"
           />
         </CardContent>
       </Card>
