@@ -32,11 +32,6 @@ export default async function Page({
             Player{' '}
             <span className="text-muted-foreground">{myAgent.symbol}</span>
           </h2>
-          <Link href="/game">
-            <Button variant="ghost" className="w-full justify-start">
-              Game
-            </Button>
-          </Link>
           <Link href="/game/ships">
             <Button variant="ghost" className="w-full justify-start">
               Ships

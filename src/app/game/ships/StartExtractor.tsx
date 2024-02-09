@@ -13,7 +13,9 @@ export const StartExtractor = () => {
           })
         }}
       >
-        <Button type="submit">Start Extractor</Button>
+        <Button type="submit" variant={'default'} size="sm">
+          Start Extractor
+        </Button>
       </form>
     </>
   )
